@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from skimage.filters import threshold_otsu
 
 
 def calculate_entropy(probabilities):
@@ -35,4 +36,28 @@ def max_entropy_threshold(image):
     
     return optimal_threshold
 
+def th_otsu(image):
+    """
+    Apply Otsu's thresholding method to the image.
+    
+    Args:
+    - image (numpy.ndarray): Input grayscale image.
+    
+    Returns:
+    - numpy.ndarray: Binary image after Otsu's thresholding.
+    """
+    thresh_value = threshold_otsu(image)
+    binary = image > thresh_value
+    return (np.array(binary, dtype=int)) * 255
 
+def gray(image):
+    """
+    Convert a BGR image to grayscale.
+    
+    Args:
+    - image (numpy.ndarray): Input BGR image.
+    
+    Returns:
+    - numpy.ndarray: Grayscale image.
+    """
+    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

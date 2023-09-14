@@ -3,6 +3,8 @@ import pandas as pd
 
 arr = np.zeros((10, 10), dtype=np.uint8)
 
+
+
 arr[2:5, 2:5] = [[50, 100, 150],
                  [50, 100, 150],
                  [50, 100, 150]]
@@ -10,6 +12,8 @@ arr[2:5, 2:5] = [[50, 100, 150],
 arr[5:8, 5:8] = [[255, 205, 155],
                  [255, 205, 155],
                  [255, 205, 155]]
+
+print('arr: ', arr)
 
 def get_neighbors(i, j, arr):
     rows, cols = arr.shape

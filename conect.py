@@ -1,16 +1,19 @@
 import numpy as np
 import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
+
 
 arr = np.zeros((10, 10), dtype=np.uint8)
 
 
-arr[2:5, 2:5] = [[50, 100, 150],
-                 [50, 100, 150],
-                 [50, 100, 150]]
+arr[2:5, 2:5] = [[255,255, 255],
+                 [255,255, 255],
+                 [255,255, 255]]
 
-arr[5:8, 5:8] = [[255, 205, 155],
-                 [255, 205, 155],
-                 [255, 205, 155]]
+arr[5:8, 5:8] = [[255,255, 255],
+                 [255,255, 255],
+                 [255,255, 255]]
 
 print('arr : ', arr )
 
@@ -38,4 +41,7 @@ for i in range(arr.shape[0]):
 
 df = pd.DataFrame(connections, columns=["source", "target", "weight"])
 
-print(df)
+G = nx.Graph(df)
+pos = nx.spring_layout(G, seed=1)
+nx.draw(G, pos)
+plt.show()

@@ -1,21 +1,20 @@
 import numpy as np
 import pandas as pd
+from tools import *
+import cv2
 import networkx as nx
 import matplotlib.pyplot as plt
+from skimage.morphology import skeletonize
+
+arr = gray(cv2.imread('1.png'))
+
+plt.imshow(arr)
+plt.show()
 
 
-arr = np.zeros((10, 10), dtype=np.uint8)
-
-
-arr[2:5, 2:5] = [[255,255, 255],
-                 [255,255, 255],
-                 [255,255, 255]]
-
-arr[5:8, 5:8] = [[255,255, 255],
-                 [255,255, 255],
-                 [255,255, 255]]
-
-print('arr : ', arr )
+sk = skeletonize(arr,  method= 'zhang')
+plt.imshow(sk)
+plt.show()
 
 def get_neighbors(i, j, arr):
     rows, cols = arr.shape
@@ -42,6 +41,11 @@ for i in range(arr.shape[0]):
 df = pd.DataFrame(connections, columns=["source", "target", "weight"])
 
 G = nx.Graph(df)
-pos = nx.spring_layout(G, seed=1)
-nx.draw(G, pos)
+
+# Use the image coordinates for the position
+pos = {i: (i % width, arr.shape[0] - i // width - 1) for i in G.nodes()}
+
+# Draw the graph
+nx.draw(G, pos, with_labels=True)
+plt.gca().invert_yaxis()  # Invert y-axis to match the numpy array's coordinate system
 plt.show()

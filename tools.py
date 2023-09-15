@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from skimage.filters import threshold_otsu
-
+import pandas as pd
 
 def calculate_entropy(probabilities):
     """
@@ -61,3 +61,43 @@ def gray(image):
     - numpy.ndarray: Grayscale image.
     """
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+def viz (N,L):
+    '''
+    Return the neighbors of the site N for a lattice with horizontal shape L.
+    '''
+    k=[N-L,N+L,N+1,N-1]
+    return k
+
+def viz2 (N,L):
+    '''
+    Return the neighbors of the site N for a lattice with horizontal shape L.
+    '''
+    k=[N-L,N+L,N+1,N-1,N-L+1,N-L-1,N+L+1,N+L-1]
+    return k
+
+def nodEdg(Image):
+    '''
+    Return a dictionary with the lattice positions of the nodes, an data frame with source and target connection
+    between the nodes and the nodes.
+    '''
+    L=Image.shape[0]
+    edges=[]
+    
+    Npos=np.where(Image == 255)
+    Nodes=Npos[0]*Image.shape[0]+Npos[1]
+    Spos=np.flip(Npos,axis=0)
+    Spos[1]= Image.shape[1] - Spos[1]
+    dic= dict(zip(Nodes, zip(*Spos)))
+    
+    for i in range (len(Nodes)):
+        nb=viz2(Nodes[i],L)           #viz-primeiros vizinhos  viz2-primeiros e segundos vizinhos
+        for j in range (len(nb)):
+            if nb[j] in Nodes:
+                if (nb[j],Nodes[i]) not in edges:
+                    edges.append((Nodes[i],nb[j]))
+    df=pd.DataFrame()
+    df['source'] = np.array(edges)[:,0]
+    df['target'] = np.array(edges)[:,1]
+    
+    return dic,df,Nodes

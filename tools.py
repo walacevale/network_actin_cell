@@ -85,7 +85,7 @@ def nodEdg(Image):
     edges=[]
     
     Npos=np.where(Image == 255)
-    Nodes=Npos[0]*Image.shape[0]+Npos[1]
+    Nodes=Npos[0]*L+Npos[1]
     Spos=np.flip(Npos,axis=0)
     Spos[1]= Image.shape[1] - Spos[1]
     dic= dict(zip(Nodes, zip(*Spos)))

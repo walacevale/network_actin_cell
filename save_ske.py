@@ -22,4 +22,4 @@ for img_path  in folder_original:
     base_filename = os.path.basename(img_path)
     save_path = os.path.join(save_folder, base_filename)
 
-    cv2.imwrite(save_path, img_th)
+    cv2.imwrite(save_path, sk)

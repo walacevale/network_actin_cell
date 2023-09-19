@@ -81,7 +81,7 @@ def nodEdg(Image):
     Return a dictionary with the lattice positions of the nodes, an data frame with source and target connection
     between the nodes and the nodes.
     '''
-    L=Image.shape[0]
+    L=Image.shape[1]
     edges=[]
     
     Npos=np.where(Image == 255)

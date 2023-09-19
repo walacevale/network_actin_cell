@@ -6,8 +6,8 @@ import glob
 import os
 
 # Configurações de diretórios
-path_img_folder = "./Dados_image/\\FIBRO CITO T30 COL/"
-save_folder = './skeletonize/T30/'
+path_img_folder = "./Dados_image/\\FIBRO CITO T0 COL/"
+save_folder = './skeletonize/OTSU_T0/'
 
 folder_original = glob.glob(path_img_folder + "*")
 if not os.path.exists(save_folder):
@@ -22,4 +22,4 @@ for img_path  in folder_original:
     base_filename = os.path.basename(img_path)
     save_path = os.path.join(save_folder, base_filename)
 
-    cv2.imwrite(save_path, sk)
+    cv2.imwrite(save_path, img_th)

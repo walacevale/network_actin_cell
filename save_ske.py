@@ -6,8 +6,8 @@ import glob
 import os
 
 # Configurações de diretórios
-path_img_folder = "./Dados_image/\\FIBRO CITO T0 COL/"
-save_folder = './skeletonize/T0/'
+path_img_folder = "./Dados_image/\\FIBRO CITO T30 COL/"
+save_folder = './skeletonize/T30/'
 
 folder_original = glob.glob(path_img_folder + "*")
 if not os.path.exists(save_folder):

@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from skimage.filters import threshold_otsu
 import pandas as pd
+import networkx as nx
 
 def calculate_entropy(probabilities):
     """
@@ -101,3 +102,13 @@ def nodEdg(Image):
     df['target'] = np.array(edges)[:,1]
     
     return dic,df,Nodes
+
+def connected_component_subgraphs(G, copy=True):
+    '''
+    Returns the connected components subgraphs of the graph G.
+    '''
+    for c in nx.connected_components(G):
+        if copy:
+            yield G.subgraph(c).copy()
+        else:
+            yield G.subgraph(c)
